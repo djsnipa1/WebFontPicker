@@ -3,5 +3,4 @@
 node_modules
 *.sublime-workspace
 *.sublime-project
-build
 example

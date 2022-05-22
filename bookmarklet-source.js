@@ -24,8 +24,8 @@ javascript:(function(){
         document.head.appendChild(script);
     }
 
-    loadStylesheet(protocol + '//gavrilov.co.uk/wfp/WFP.css');
-    loadScript(protocol + '//gavrilov.co.uk/wfp/WFP.full.min.js');
+    loadStylesheet(protocol + '//chad.is-a.dev/WebFontPicker/WFP.css');
+    loadScript(protocol + '//chad.is-a.dev/WebFontPicker/WFP.full.min.js');
 
     WFP.attached = true;
 

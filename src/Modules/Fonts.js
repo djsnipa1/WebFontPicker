@@ -1,18 +1,18 @@
-var Fonts = (function() {
+var Fonts = (function () {
 
     var deferred = $.Deferred(), // Resolved once the list of fonts is received from the Google Fonts API.
 
         protocol = window.location.protocol === 'https:' ? 'https:' : 'http:',
 
-        apiKey   = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU',
-        listAPI  = 'https://www.googleapis.com/webfonts/v1/webfonts',
+        apiKey = 'AIzaSyBHkzKgKakKAAa-uGi0IPlA9tIy-lVyaqA',
+        listAPI = 'https://www.googleapis.com/webfonts/v1/webfonts',
         fontsAPI = protocol + '//fonts.googleapis.com/css?family=',
-        letter   = /[a-zA-Z]/,
+        letter = /[a-zA-Z]/,
 
-        list     = {}, // Object of <family name>:<fontObj> available.
+        list = {}, // Object of <family name>:<fontObj> available.
         families = [], // Family names available.
-        loaded   = [], // Family names loaded.
-        onload   = deferred.done;
+        loaded = [], // Family names loaded.
+        onload = deferred.done;
 
     $.ajax({
         url: listAPI,
@@ -22,14 +22,14 @@ var Fonts = (function() {
         },
         dataType: 'jsonp',
         success: populate,
-        error: function(jqxhr, status, error) {
+        error: function (jqxhr, status, error) {
             console.log('Could not load font list:', jqxhr, status, error);
         }
     });
 
     function populate(json) {
 
-        _.forEach(json.items, function(obj){
+        _.forEach(json.items, function (obj) {
             families.push(obj.family);
             list[obj.family] = obj;
         });
@@ -38,13 +38,13 @@ var Fonts = (function() {
     }
 
     function generateFragment(fontObj) {
-        return fontObj.family.replace(/\s+/g, '+') + 
-               ':' + fontObj.variants.join(',');
+        return fontObj.family.replace(/\s+/g, '+') +
+            ':' + fontObj.variants.join(',');
     }
 
     function generateURL(families) {
 
-        var fragments = _.map(families, function(family) {
+        var fragments = _.map(families, function (family) {
             return generateFragment(list[family]);
         });
 
@@ -73,15 +73,15 @@ var Fonts = (function() {
 
         // if query is a single letter, search for fonts starting with letter
         if (query.length === 1 && letter.test(query)) {
-            return _.filter(families, function(family) {
-                return family.slice(0,1).toLowerCase() === query;
+            return _.filter(families, function (family) {
+                return family.slice(0, 1).toLowerCase() === query;
             });
         }
 
-        return _.pluck(_.filter(list, function(fontObj){
+        return _.pluck(_.filter(list, function (fontObj) {
             return fontObj.family.toLowerCase().indexOf(query) > -1 ||
-                   fontObj.variants.join(' ').indexOf(query) > -1 ||
-                   fontObj.subsets.join(' ').indexOf(query) > -1;
+                fontObj.variants.join(' ').indexOf(query) > -1 ||
+                fontObj.subsets.join(' ').indexOf(query) > -1;
         }), 'family');
     }
 
@@ -93,15 +93,15 @@ var Fonts = (function() {
         onload: onload,
         generateURL: generateURL,
 
-        load: function(families) {
-            onload(function() {
+        load: function (families) {
+            onload(function () {
                 load(families);
             });
         },
 
-        search: function(query) {
+        search: function (query) {
             var deferred = $.Deferred();
-            onload(function() {
+            onload(function () {
                 var results = search(query);
                 deferred.resolve(results);
             });

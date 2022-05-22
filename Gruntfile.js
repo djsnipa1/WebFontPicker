@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
 
@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         paths: {
             src: [
                 'src/Setup.js',
-                'src/Helpers.js',            
+                'src/Helpers.js',
                 'src/Templates.js',
                 'src/Modules/*.js',
                 'src/Models/*.js',
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
                     templateSettings: {
                         variable: 'obj'
                     },
-                    processName: function(filename) {
+                    processName: function (filename) {
                         filename = filename.split('/');
                         return filename[filename.length - 1].split('.')[0];
                     },
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
                 options: {
                     preserveComments: 'some',
                     mangle: true,
-                    compress: true,
+                    compress: {},
                     banner: [
                         '/*!',
                         ' * <%= pkg.name %> <%= pkg.version %>',
